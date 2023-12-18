@@ -92,32 +92,34 @@ def stock_meets_conditions(quote, config):
 
 # This function computes the N best and worst stocks of every day of the time period
 def get_best_stocks(config, stock_list, df_list):
+    # Number of best and worst stocks to highlight
     keep_best_nb = config["stock_isolator"]["keep"]["best"]
     keep_worst_nb = config["stock_isolator"]["keep"]["worst"]
     
+    # Next 5 lines create a very big dataframes where rows are days within the time period and columns are stocks within the list of stocks 
     deltapercent_col_list = [ df["DeltaPercent"] for df in df_list ]
     data_df = pd.concat(deltapercent_col_list, axis=1)
     data_df.columns = stock_list
     data_df.fillna(0.0, inplace=True)
     data_arrays = data_df.to_numpy()
 
+    # Calculate the best and worst stocks for very day using numpy.argsort()
     best_indexes = data_arrays.argsort()[:,::-1][:,:keep_best_nb]
     best_values = data_arrays[np.arange(data_arrays.shape[0])[:,None],best_indexes]
     worst_indexes = data_arrays.argsort()[:,:keep_worst_nb]
     worst_values = data_arrays[np.arange(data_arrays.shape[0])[:,None],worst_indexes]
 
+    # The following 11 lines transform the result into a single readable dataframe
     best_values_df = pd.DataFrame(data=best_values, index=data_df.index, columns=[f'{x+1}BN' for x in range(keep_best_nb)])
     best_indexes_df = pd.DataFrame(data=best_indexes, index=data_df.index, columns=[f'{x+1}BQ' for x in range(keep_best_nb)])
     best_indexes_df.replace({i: name for i, name in enumerate(data_df.columns.to_list())}, inplace=True)
     best_df = pd.concat([best_values_df, best_indexes_df], axis=1)
     best_df.sort_index(axis=1, inplace=True)
-    
     worst_values_df = pd.DataFrame(data=worst_values, index=data_df.index, columns=[f'{x+1}WN' for x in range(keep_worst_nb)])
     worst_indexes_df = pd.DataFrame(data=worst_indexes, index=data_df.index, columns=[f'{x+1}WQ' for x in range(keep_worst_nb)])
     worst_indexes_df.replace({i: name for i, name in enumerate(data_df.columns.to_list())}, inplace=True)
     worst_df = pd.concat([worst_values_df, worst_indexes_df], axis=1)
     worst_df.sort_index(axis=1, inplace=True)
-
     final_df = pd.concat([best_df, worst_df], axis=1)
 
     return final_df
