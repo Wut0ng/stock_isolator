@@ -1,0 +1,33 @@
+{
+    "countries": ["United States", "Canada"],
+    "period_start": -252374400,
+    "period_end": 1702339200,
+    "requeest_headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive"
+    },
+
+    "stock_isolator": {
+        "keep": {
+            "best": 5,
+            "worst": 5
+        },
+        "period": {
+            "start": {"year": 2020, "month": 1, "day": 1},
+            "end":   {"year": 2020, "month": 5, "day": 31}
+        },
+        "conditions": [
+            {
+                "condition": "Market Cap",
+                "min_value": "2M"
+            },
+            {
+                "condition": "Volume",
+                "min_value": "2K",
+                "max_value": "300B"
+            }
+        ]
+    }
+}
