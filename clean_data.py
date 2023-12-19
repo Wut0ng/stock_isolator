@@ -6,7 +6,7 @@ import os
 
 def main():
     # Create a multithreading pool
-    pool = Pool(8)
+    pool = Pool(24)
     config = util.get_config()
 
     print('\nStarted clean_data.py\n')
