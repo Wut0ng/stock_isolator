@@ -1,4 +1,5 @@
 from resources import util
+from multiprocessing.pool import ThreadPool as Pool
 import pandas as pd
 import numpy as np
 import datetime
@@ -7,6 +8,7 @@ import time
 
 
 def main():
+    # Create a multithreading pool
     config = util.get_config()
 
     print('\nStarted stock_isolator.py\n')
@@ -36,40 +38,42 @@ def stock_isolator(config):
 
 # This function makes a list of stocks that satisfies every condiction for every day of the time period
 def get_stock_list(config):
-    stock_list = []
-    df_list = []
-    # This loop run once for every stock
-    for quote in util.get_stock_list(config):
+    unfiltered_stock_list = util.get_stock_list(config)
 
-        # Check if stock has clean data
-        if not os.path.isfile(f'data\\clean_data\\{quote}.csv'):
-            continue
-        
-        # Check if a certain stock meets the conditions
-        df_result = stock_meets_conditions(quote, config)
-        if df_result is not None:
-            # If the stock meet the requirements, then put it in the list
-            # print(f'Stock  {quote:<5} does meet the requirements \033[92m✓\033[0m')
-            stock_list.append(quote)
-            df_list.append(df_result)
-        # else:
-            # print(f"Stock  {quote:<5} does not meet the requirements \033[91m✗\033[0m")
-
-    return stock_list, df_list
-
-# This function checks if a certain stock meets the conditions
-def stock_meets_conditions(quote, config):
-    df = pd.read_csv(f'data\\clean_data\\{quote}.csv')
-    df['Date'] = pd.to_datetime(df['Date'])
+    pool = Pool(32)
+    stock_list = [None] * len(unfiltered_stock_list)
+    df_list = [None] * len(unfiltered_stock_list)
 
     period_start = datetime.datetime(year=config["stock_isolator"]["period"]["start"]["year"], month=config["stock_isolator"]["period"]["start"]["month"], day=config["stock_isolator"]["period"]["start"]["day"])
     period_end = datetime.datetime(year=config["stock_isolator"]["period"]["end"]["year"], month=config["stock_isolator"]["period"]["end"]["month"], day=config["stock_isolator"]["period"]["end"]["day"])
-    
-    least_recent_value = df.at[df.index[1], 'Date']
-    most_recent_value = df.at[df.index[-1], 'Date']
+
+    # This loop run once for every stock
+    for index, quote in enumerate(unfiltered_stock_list):
+        pool.apply_async(stock_list_worker, (quote, config, stock_list, df_list, index, period_start, period_end))
+    pool.close()
+    pool.join()
+
+    # Remove all the None (A None means a stock did not meet the requirements)
+    return [x for x in stock_list if x is not None], [x for x in df_list if x is not None]
+
+def stock_list_worker(quote, config, stock_list, df_list, index, period_start, period_end):
+    if os.path.isfile(f'data\\clean_data\\{quote}.csv'):
+        # Check if a certain stock meets the conditions
+        df_result = stock_meets_conditions(quote, config, period_start, period_end)
+        if df_result is not None:
+            stock_list[index] = quote
+            df_list[index] = df_result
+            # print(f'Stock  {quote:<5} does meet the requirements \033[92m✓\033[0m')
+        # else:
+            # print(f"Stock  {quote:<5} does not meet the requirements \033[91m✗\033[0m")
+
+# This function checks if a certain stock meets the conditions
+def stock_meets_conditions(quote, config, period_start, period_end):
+    df = pd.read_csv(f'data\\clean_data\\{quote}.csv')
+    df['Date'] = pd.to_datetime(df['Date'])
 
     # Check if data is present for the requested time period
-    if least_recent_value > period_start or most_recent_value < period_end:
+    if df.at[df.index[0], 'Date'] > period_start or df.at[df.index[-1], 'Date'] < period_end:
         return None
 
     # Keep only part of the DF that is in the requested time period

@@ -22,7 +22,7 @@
         "conditions": [
             {
                 "condition": "Market Cap",
-                "min_value": "2M"
+                "min_value": "25B"
             },
             {
                 "condition": "Volume",
