@@ -3,11 +3,12 @@ from multiprocessing.pool import ThreadPool as Pool
 import re
 import requests
 import os
+import time
 
 
 def main():
     # Create a multithreading pool
-    pool = Pool(2)
+    pool = Pool(1)
     config = util.get_config()
 
     print('\nStarted download_data.py\n')
@@ -61,6 +62,7 @@ def shares_worker(quote, session, config):
 
     except Exception as e:
         print(f'\033[91mError while running shares_worker({quote}): {e}\033[0m')
+        print(f'https://finance.yahoo.com/quote/{quote}/key-statistics')
 
 
 def split_worker(quote, session, config):
@@ -85,6 +87,7 @@ def split_worker(quote, session, config):
 
     except Exception as e:
         print(f'\033[91mError while running split_worker({quote}): {e}\033[0m')
+        print(f'https://query1.finance.yahoo.com/v7/finance/download/{quote}?period1={config["period_start"]}&period2={config["period_end"]}&interval=1d&events=split')
 
 
 def price_worker(quote, session, config):
@@ -109,6 +112,7 @@ def price_worker(quote, session, config):
 
     except Exception as e:
         print(f'\033[91mError while running price_worker({quote}): {e}\033[0m')
+        print(f'https://query1.finance.yahoo.com/v7/finance/download/{quote}?period1={config["period_start"]}&period2={config["period_end"]}&interval=1d&events=history')
 
 
 if __name__ == '__main__':

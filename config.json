@@ -1,12 +1,13 @@
 {
     "countries": ["United States", "Canada"],
     "period_start": -252374400,
-    "period_end": 1702339200,
+    "period_end": 1702857600,
     "requeest_headers": {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive"
+        "Connection": "keep-alive",
+        "Cookie": "cmp=t=1702419497&j=1&u=1---&v=6; thamba=1; F=d=IpHP5w89vGYG3lD.1U4C_ffF5p8rPqzwWCBNiLcubL6jv0fY6Mr409DCDP2tWQ--; PH=l=en-US; Y=v=1&n=6qv4ipuidhh0q&l=hwmvjj1877616k898fwtnltmo0th0h168gil8s03/o&p=n34vvca00000000&r=1cp&intl=us; GUC=AQEACAJlgMxlrEIj7gUE&s=AQAAAMD7_2Tu&g=ZX9-sQ; A1=d=AQABBInCW2UCEP6HsxZrtDr6MHVjNdFU_3cFEgEACALMgGWsZdzcxyMA_eMBAAcIhMJbZcMPbd4ID2-7BKsDOvYsUp-oNUJXPAkBBwoBwA&S=AQAAAhymQ9A3fv41PO1YIQMHmcQ; A3=d=AQABBInCW2UCEP6HsxZrtDr6MHVjNdFU_3cFEgEACALMgGWsZdzcxyMA_eMBAAcIhMJbZcMPbd4ID2-7BKsDOvYsUp-oNUJXPAkBBwoBwA&S=AQAAAhymQ9A3fv41PO1YIQMHmcQ; OTH=v=2&s=2&d=eyJraWQiOiIwMTY0MGY5MDNhMjRlMWMxZjA5N2ViZGEyZDA5YjE5NmM5ZGUzZWQ5IiwiYWxnIjoiUlMyNTYifQ.eyJjdSI6eyJndWlkIjoiWkVRUVVITlhETkxLVUJNWjMyRkVYQk5UUEEiLCJwZXJzaXN0ZW50Ijp0cnVlLCJzaWQiOiJQV2JOUWJUalBkTXIifX0.qDBl2j5E0kmtern8E0XZ6VJ3MzCjs0xyGODhMznBzdMjMbjSW2I6XBOPMnQbHoIJ_Y6j8SIXvZnjOGXaU7xXH4H7WrNEZo98tpYDy7IQbxSLuZirraKfxYcoT7oLv0rts1Mus8mL67Lp0TMpiau76fVj2DynGK5QDiilT8xiVqg; T=af=JnRzPTE3MDI4NTQzODkmcHM9QWxIS3lUbFR2bGhTNUMuZzFfekxUdy0t&d=bnMBeWFob28BZwFaRVFRVUhOWEROTEtVQk1aMzJGRVhCTlRQQQFhYwFBR2RuMlQ5SQFhbAFtYXRoaWV1bGFtYmVydDM0QGdtYWlsLmNvbQFzYwFkZXNrdG9wX3dlYgFmcwFfMndoTFM5bGYzNmsBenoBMTczZmxCQTdFAWEBUUFFAWxhdAExNzNmbEIBbnUBMA--&kt=EAAuj4xz2DsT90n_BMg4si0bA--~I&ku=FAACGiVWlns6tM5TBH9tXIxLXlDEiCu.cN_P7VrRQ8EUlCHWnvD5Ea17M5kbSC0043KfmfwJPKp4oNVnkqL2bCFbscDo8BNgC8A0sE34clAI_igqe8rqcvDsIpdpcwjXK2OKk7V4N.P_Im95ZBfQZPdyfpMHDcOdu.lTIUVg.duJvA-~E; A1S=d=AQABBInCW2UCEP6HsxZrtDr6MHVjNdFU_3cFEgEACALMgGWsZdzcxyMA_eMBAAcIhMJbZcMPbd4ID2-7BKsDOvYsUp-oNUJXPAkBBwoBwA&S=AQAAAhymQ9A3fv41PO1YIQMHmcQ; PRF=t%3D%255ENYA%252B%255EDJI%252BAACIW%252BAAPL%252B%255EIXIC%252BAADI%252BAAGRW%252BEXAS%252BLABD%252BMETA%252BMSFT%252BED%252BDOW%252BGME%252BHOOD%26newChartbetateaser%3D1"
     },
 
     "stock_isolator": {
